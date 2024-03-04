@@ -15,7 +15,18 @@ function doGet() {
     values.forEach(row => {
         var obj = {};
         row.forEach((cell, index) => {
-            obj[headers[index]] = cell;
+            var cellFormat = sheet.getRange(index + 3, index + 1).getNumberFormat(); // ดึงรูปแบบของเซลล์
+            var cellAlignment = sheet.getRange(index + 3, index + 1).getHorizontalAlignment(); // ดึงการจัดวางของเซลล์
+            var cellbackgrounds = sheet.getRange(index + 3, index + 1).getBackgrounds(); 
+            var cellfontColors = sheet.getRange(index + 3, index + 1).getFontColors(); 
+
+            obj[headers[index]] = {
+                value: cell,
+                format: cellFormat,
+                alignment: cellAlignment,
+                backgrounds:cellbackgrounds,
+                fontColors:cellfontColors
+            };
         });
         data.push(obj);
     });
@@ -26,19 +37,3 @@ function doGet() {
 }
 
 
-  // let result = values.map(([a,b,c,d,e,f,g,h,i]) => {
-  //   return ({unix:a,date:b,symbol:c,open:d,high:e,low:f,close:g,vol_btc:h,vol_usdt:i});
-  // })
-
-  // let data = JSON.stringify(result);
-  // console.log('data:',data);
-  // return ContentService.createTextOutput(data).setMimeType(ContentService.MimeType.JSON);
-
-// var dataRange = sheet.getRange('A2:A');
-// var dataValues = dataRange.getValues();
-
-// var count = dataValues.reduce(function (acc, row) {
-//   return acc + (row[0] !== '' ? 1 : 0);
-// }, 0);
-
-// console.log(dataRange)
