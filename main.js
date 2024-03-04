@@ -15,21 +15,22 @@ function getDataFromAPI() { // On : https://script.google.com/
 
 
 async function getDataFromAPI2() { // On : VS Code
+  var fs = require('fs');
   const axios = require('axios');
-    try {
-        const url = http_json;
-        const response = await axios.get(url);
-        // บันทึกข้อมูลลงในไฟล์ file.json
-        fs.writeFileSync('data.json', JSON.stringify(data));
+  try {
+    const url = http_json;
+    const response = await axios.get(url);
+    // บันทึกข้อมูลลงในไฟล์ file.json
+    fs.writeFileSync('data.json', JSON.stringify(response.data));
 
-        console.log(response.data);
-    } catch (error) {
-        console.error('Error fetching data:', error.message);
-        // getDataFromAPI()
-    }
+    console.log(response.data);
+} catch (error) {
+    console.error('Error fetching data:', error.message);
+    // getDataFromAPI()
+}
 }
 
-getDataFromAPI();
+getDataFromAPI2();
 
 
 
